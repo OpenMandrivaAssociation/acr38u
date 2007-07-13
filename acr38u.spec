@@ -57,6 +57,12 @@ PCSC-lite.
 %{__rm} -rf %{buildroot}
 %makeinstall_std
 
+# move the .pc file to the correct place on x86-64
+%ifarch x86_64
+mkdir -p %{buildroot}%{_libdir}/pkgconfig
+mv %{buildroot}%{_prefix}/lib/pkgconfig/libacr38ucontrol.pc %{buildroot}%{_libdir}/pkgconfig/libacr38ucontrol.pc
+%endif
+
 %post
 /sbin/service pcscd condrestart > /dev/null 2>/dev/null || :
 
