@@ -58,10 +58,10 @@ PCSC-lite.
 %makeinstall_std
 
 %post
-/sbin/service cups condrestart > /dev/null 2>/dev/null || :
+/sbin/service pcscd condrestart > /dev/null 2>/dev/null || :
 
 %postun
-/sbin/service cups condrestart > /dev/null 2>/dev/null || :
+/sbin/service pcscd condrestart > /dev/null 2>/dev/null || :
 
 %post -n %{libname} -p /sbin/ldconfig
 %postun -n %{libname} -p /sbin/ldconfig
