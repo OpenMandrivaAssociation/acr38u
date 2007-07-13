@@ -82,7 +82,7 @@ mv %{buildroot}%{_prefix}/lib/pkgconfig/libacr38ucontrol.pc %{buildroot}%{_libdi
 
 %files -n %{libname}
 %defattr(-, root, root, 0755)
-%{_libdir}/*.so*
+%{_libdir}/*.so.*
 
 %files -n %{develname}
 %defattr(-, root, root, 0755)
