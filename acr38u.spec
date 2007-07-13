@@ -1,8 +1,8 @@
 %define usbdropdir %(pkg-config libpcsclite --variable="usbdropdir" 2>/dev/null)
-%define release %mkrel 2
+%define release %mkrel 3
 %define version	1.7.9
 %define name	acr38u
-%define	major	1	
+%define	major	0
 %define libname %mklibname %name %major
 %define develname %mklibname %name -d
 %define build_version 100709
