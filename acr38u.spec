@@ -15,6 +15,7 @@ License: GPL
 Group: System/Kernel and hardware
 URL: http://www.acs.com.hk/acr38_driversmanual.asp
 Source: http://www.acs.com.hk/download/ACR38_LINUX_%{build_version}_P.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildRequires: pcsc-lite-devel >= 1.3.1
 Requires(post): pcsc-lite
 Requires(postun): pcsc-lite
