@@ -69,8 +69,12 @@ mv %{buildroot}%{_prefix}/lib/pkgconfig/libacr38ucontrol.pc %{buildroot}%{_libdi
 %postun
 /sbin/service pcscd condrestart > /dev/null 2>/dev/null || :
 
+%if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
+%endif
+%if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
+%endif
 
 %clean
 %{__rm} -rf %{buildroot}
