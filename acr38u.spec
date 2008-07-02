@@ -1,53 +1,56 @@
 %define usbdropdir %(pkg-config libpcsclite --variable="usbdropdir" 2>/dev/null)
-%define release %mkrel 6
-%define version	1.7.9
-%define name	acr38u
 %define	major	0
 %define libname %mklibname %name %major
 %define develname %mklibname %name -d
 %define build_version 100709
 
-Summary: ACS ACR 38 USB (acr38u) Smartcard Reader driver for PCSC-lite
-Name: %{name}
-Version: %{version}
-Release: %{release}
-License: GPL
-Group: System/Kernel and hardware
-URL: http://www.acs.com.hk/acr38_driversmanual.asp
-Source: http://www.acs.com.hk/download/ACR38_LINUX_%{build_version}_P.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildRequires: pcsc-lite-devel >= 1.3.1
+Summary:	ACS ACR 38 USB (acr38u) Smartcard Reader driver for PCSC-lite
+Name:		acr38u
+Version:	1.7.9
+Release:	%mkrel 6
+License:	GPL
+Group:		System/Kernel and hardware
+URL:		http://www.acs.com.hk/acr38_driversmanual.asp
+Source0:	http://www.acs.com.hk/download/ACR38_LINUX_%{build_version}_P.tar.gz
+Patch0:		acr38u-linkage_fix.diff
+BuildRequires:	pcsc-lite-devel >= 1.3.1
 Requires(post): pcsc-lite
 Requires(postun): pcsc-lite
-Requires: pcsc-lite
-Requires: %{libname} = %{version}-%{release}
+Requires:	pcsc-lite
+Requires:	%{libname} = %{version}-%{release}
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 CCID ACR38u Smart Card reader driver for PCSC-lite.
 
-%package -n %{libname}
-Group: System/Libraries
-Summary: Shared library for %{name}
+%package -n	%{libname}
+Group:		System/Libraries
+Summary:	Shared library for %{name}
 
-%description -n %{libname}
+%description -n	%{libname}
 Shared library for the CCID ACR38u Smart Card reader driver for
 PCSC-lite.
 
-%package -n %{develname}
-Summary: Development library for %{name}
-Group: Development/C
-Requires: %{libname} = %{version}
-Provides: %{name}-devel = %{version}-%{release}
+%package -n	%{develname}
+Summary:	Development library for %{name}
+Group:		Development/C
+Requires:	%{libname} = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
 
-%description -n %{develname}
+%description -n	%{develname}
 Development files for the CCID ACR38u Smart Card reader driver for
 PCSC-lite.
 
 %prep
+
 %setup -q -n ACR38_LINUX_%{build_version}_P
+%patch0 -p0
 
 %build
-%configure \
+rm -rf autom4te.cache
+autoreconf -fis
+
+%configure2_5x \
 	--disable-dependency-tracking \
 	--disable-static \
 	--enable-usbdropdir="%{buildroot}%{usbdropdir}"
@@ -55,6 +58,7 @@ PCSC-lite.
 
 %install
 %{__rm} -rf %{buildroot}
+
 %makeinstall_std
 
 # move the .pc file to the correct place on x86-64
@@ -72,6 +76,7 @@ mv %{buildroot}%{_prefix}/lib/pkgconfig/libacr38ucontrol.pc %{buildroot}%{_libdi
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
 %endif
+
 %if %mdkversion < 200900
 %postun -n %{libname} -p /sbin/ldconfig
 %endif
