@@ -48,7 +48,7 @@ PCSC-lite.
 rm -rf autom4te.cache
 autoreconf -fis
 
-%configure2_5x \
+%configure \
 	--disable-dependency-tracking \
 	--disable-static \
 	--enable-usbdropdir="%{buildroot}%{usbdropdir}"
@@ -57,8 +57,8 @@ autoreconf -fis
 %install
 %makeinstall_std
 
-# move the .pc file to the correct place on x86-64
-%ifarch x86_64
+# move the .pc file to the correct place on 64-bit platforms
+%if "%{_libdir}" != "%{_prefix}/lib"
 mkdir -p %{buildroot}%{_libdir}/pkgconfig
 mv %{buildroot}%{_prefix}/lib/pkgconfig/libacr38ucontrol.pc %{buildroot}%{_libdir}/pkgconfig/libacr38ucontrol.pc
 %endif
