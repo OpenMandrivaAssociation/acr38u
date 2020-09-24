@@ -1,5 +1,5 @@
 %define usbdropdir %(pkg-config libpcsclite --variable="usbdropdir" 2>/dev/null)
-%define build_version 100709
+%define build_version 100711
 %define major	0
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
@@ -11,10 +11,11 @@ Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://www.acs.com.hk/acr38_driversmanual.asp
-Source0:	http://www.acs.com.hk/download/ACR38_LINUX_%{build_version}_P.tar.gz
+Source0:        http://www.linuxunderground.be/ACR38_LINUX_%{build_version}_P.tar.bz2
 Patch0:		acr38u-linkage_fix.diff
 
 BuildRequires:	pkgconfig(libpcsclite)
+BuildRequires:	pkgconfig(libusb)
 Requires(post,postun):	pcsc-lite
 Requires:	pcsc-lite
 Requires:	%{libname} = %{version}-%{release}
