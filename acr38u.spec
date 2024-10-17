@@ -10,7 +10,7 @@ Version:	1.7.11
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
-Url:		http://www.acs.com.hk/acr38_driversmanual.asp
+Url:		https://www.acs.com.hk/acr38_driversmanual.asp
 Source0:        http://www.linuxunderground.be/ACR38_LINUX_%{build_version}_P.tar.bz2
 Patch0:		acr38u-linkage_fix.diff
 
