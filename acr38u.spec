@@ -14,6 +14,11 @@ Url:		https://www.acs.com.hk/acr38_driversmanual.asp
 Source0:        http://www.linuxunderground.be/ACR38_LINUX_%{build_version}_P.tar.bz2
 Patch0:		acr38u-linkage_fix.diff
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(libpcsclite)
 BuildRequires:	pkgconfig(libusb)
 Requires(post,postun):	pcsc-lite
